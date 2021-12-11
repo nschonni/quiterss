@@ -365,13 +365,13 @@ void NewsTabWidget::createWebWidget()
   webHomePageAct_->setIcon(QIcon(":/images/homePage"));
 
   webToolBar_->addAction(webHomePageAct_);
-  QAction *webAction = webView_->pageAction(QWebPage::Back);
+  QAction *webAction = webView_->pageAction(QWebEnginePage::Back);
   webToolBar_->addAction(webAction);
-  webAction = webView_->pageAction(QWebPage::Forward);
+  webAction = webView_->pageAction(QWebEnginePage::Forward);
   webToolBar_->addAction(webAction);
-  webAction = webView_->pageAction(QWebPage::Reload);
+  webAction = webView_->pageAction(QWebEnginePage::Reload);
   webToolBar_->addAction(webAction);
-  webAction = webView_->pageAction(QWebPage::Stop);
+  webAction = webView_->pageAction(QWebEnginePage::Stop);
   webToolBar_->addAction(webAction);
   webToolBar_->addSeparator();
 
@@ -416,8 +416,8 @@ void NewsTabWidget::createWebWidget()
   webWidget_->setMinimumHeight(100);
   setWebWidgetVisible();
 
-  webView_->page()->action(QWebPage::OpenLink)->disconnect();
-  webView_->page()->action(QWebPage::OpenLinkInNewWindow)->disconnect();
+  webView_->page()->action(QWebEnginePage::OpenLink)->disconnect();
+  webView_->page()->action(QWebEnginePage::OpenLinkInNewWindow)->disconnect();
 
   urlExternalBrowserAct_ = new QAction(this);
   urlExternalBrowserAct_->setIcon(QIcon(":/images/openBrowser"));
@@ -439,9 +439,9 @@ void NewsTabWidget::createWebWidget()
 
   connect(webView_, SIGNAL(titleChanged(QString)),
           this, SLOT(webTitleChanged(QString)));
-  connect(webView_->page()->action(QWebPage::OpenLink), SIGNAL(triggered()),
+  connect(webView_->page()->action(QWebEnginePage::OpenLink), SIGNAL(triggered()),
           this, SLOT(openLink()));
-  connect(webView_->page()->action(QWebPage::OpenLinkInNewWindow), SIGNAL(triggered()),
+  connect(webView_->page()->action(QWebEnginePage::OpenLinkInNewWindow), SIGNAL(triggered()),
           this, SLOT(openLinkInNewTab()));
 
   connect(webView_, SIGNAL(showContextMenu(QPoint)),
@@ -530,14 +530,14 @@ void NewsTabWidget::setSettings(bool init, bool newTab)
     }
 
     if (mainWindow_->externalBrowserOn_ <= 0) {
-      webView_->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+      webView_->page()->setLinkDelegationPolicy(QWebEnginePage::DelegateAllLinks);
     } else {
-      webView_->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+      webView_->page()->setLinkDelegationPolicy(QWebEnginePage::DelegateExternalLinks);
     }
 
-    webView_->page()->action(QWebPage::Back)->setShortcut(mainWindow_->backWebPageAct_->shortcut());
-    webView_->page()->action(QWebPage::Forward)->setShortcut(mainWindow_->forwardWebPageAct_->shortcut());
-    webView_->page()->action(QWebPage::Reload)->setShortcut(mainWindow_->reloadWebPageAct_->shortcut());
+    webView_->page()->action(QWebEnginePage::Back)->setShortcut(mainWindow_->backWebPageAct_->shortcut());
+    webView_->page()->action(QWebEnginePage::Forward)->setShortcut(mainWindow_->forwardWebPageAct_->shortcut());
+    webView_->page()->action(QWebEnginePage::Reload)->setShortcut(mainWindow_->reloadWebPageAct_->shortcut());
 
     QWebSettings::setObjectCacheCapacities(0, 0, 0);
   }
@@ -2231,8 +2231,8 @@ void NewsTabWidget::slotFindText(const QString &text)
 {
   QString objectName = findText_->findGroup_->checkedAction()->objectName();
   if (objectName == "findInBrowserAct") {
-    webView_->findText("", QWebPage::HighlightAllOccurrences);
-    webView_->findText(text, QWebPage::HighlightAllOccurrences);
+    webView_->findText("", QWebEnginePage::HighlightAllOccurrences);
+    webView_->findText(text, QWebEnginePage::HighlightAllOccurrences);
   } else {
     int newsId = newsModel_->dataField(newsView_->currentIndex().row(), "id").toInt();
 
@@ -2293,7 +2293,7 @@ void NewsTabWidget::slotFindText(const QString &text)
 //----------------------------------------------------------------------------
 void NewsTabWidget::slotSelectFind()
 {
-  webView_->findText("", QWebPage::HighlightAllOccurrences);
+  webView_->findText("", QWebEnginePage::HighlightAllOccurrences);
   slotFindText(findText_->text());
 }
 //----------------------------------------------------------------------------
@@ -2304,19 +2304,19 @@ void NewsTabWidget::showContextWebPage(const QPoint &p)
   if (pageMenu) {
     menu.addActions(pageMenu->actions());
 
-    webView_->page()->action(QWebPage::OpenLink)->setText(tr("Open Link"));
-    webView_->page()->action(QWebPage::OpenLinkInNewWindow)->setText(tr("Open in New Tab"));
-    webView_->page()->action(QWebPage::DownloadLinkToDisk)->setText(tr("Save Link..."));
-    webView_->page()->action(QWebPage::DownloadImageToDisk)->setText(tr("Save Image..."));
-    webView_->page()->action(QWebPage::CopyLinkToClipboard)->setText(tr("Copy Link"));
-    webView_->page()->action(QWebPage::Copy)->setText(tr("Copy"));
-    webView_->page()->action(QWebPage::Back)->setText(tr("Go Back"));
-    webView_->page()->action(QWebPage::Forward)->setText(tr("Go Forward"));
-    webView_->page()->action(QWebPage::Stop)->setText(tr("Stop"));
-    webView_->page()->action(QWebPage::Reload)->setText(tr("Reload"));
-    webView_->page()->action(QWebPage::CopyImageToClipboard)->setText(tr("Copy Image"));
+    webView_->page()->action(QWebEnginePage::OpenLink)->setText(tr("Open Link"));
+    webView_->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setText(tr("Open in New Tab"));
+    webView_->page()->action(QWebEnginePage::DownloadLinkToDisk)->setText(tr("Save Link..."));
+    webView_->page()->action(QWebEnginePage::DownloadImageToDisk)->setText(tr("Save Image..."));
+    webView_->page()->action(QWebEnginePage::CopyLinkToClipboard)->setText(tr("Copy Link"));
+    webView_->page()->action(QWebEnginePage::Copy)->setText(tr("Copy"));
+    webView_->page()->action(QWebEnginePage::Back)->setText(tr("Go Back"));
+    webView_->page()->action(QWebEnginePage::Forward)->setText(tr("Go Forward"));
+    webView_->page()->action(QWebEnginePage::Stop)->setText(tr("Stop"));
+    webView_->page()->action(QWebEnginePage::Reload)->setText(tr("Reload"));
+    webView_->page()->action(QWebEnginePage::CopyImageToClipboard)->setText(tr("Copy Image"));
 #if QT_VERSION >= 0x040800
-    webView_->page()->action(QWebPage::CopyImageUrlToClipboard)->setText(tr("Copy Image Address"));
+    webView_->page()->action(QWebEnginePage::CopyImageUrlToClipboard)->setText(tr("Copy Image Address"));
 #endif
 
     const QWebHitTestResult &hitTest = webView_->page()->mainFrame()->hitTestContent(p);
@@ -2326,11 +2326,11 @@ void NewsTabWidget::showContextWebPage(const QPoint &p)
         menu.addSeparator();
         menu.addAction(urlExternalBrowserAct_);
       }
-    } else if (pageMenu->actions().indexOf(webView_->pageAction(QWebPage::Reload)) >= 0) {
+    } else if (pageMenu->actions().indexOf(webView_->pageAction(QWebEnginePage::Reload)) >= 0) {
       if (webView_->title() == "news_descriptions") {
-        webView_->pageAction(QWebPage::Reload)->setVisible(false);
+        webView_->pageAction(QWebEnginePage::Reload)->setVisible(false);
       } else {
-        webView_->pageAction(QWebPage::Reload)->setVisible(true);
+        webView_->pageAction(QWebEnginePage::Reload)->setVisible(true);
         menu.addSeparator();
       }
       menu.addAction(mainWindow_->autoLoadImagesToggle_);
@@ -2347,8 +2347,8 @@ void NewsTabWidget::showContextWebPage(const QPoint &p)
         }
       }
       menu.insertSeparator(menu.actions().at(0));
-      menu.insertAction(menu.actions().at(0), webView_->pageAction(QWebPage::Redo));
-      menu.insertAction(menu.actions().at(0), webView_->pageAction(QWebPage::Undo));
+      menu.insertAction(menu.actions().at(0), webView_->pageAction(QWebEnginePage::Redo));
+      menu.insertAction(menu.actions().at(0), webView_->pageAction(QWebEnginePage::Undo));
     }
 
     if (!hitTest.isContentEditable() && !hitTest.isContentSelected()) {

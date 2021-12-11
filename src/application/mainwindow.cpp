@@ -3643,20 +3643,20 @@ void MainWindow::showOptionDlg(int index)
   optionsDialog_->colorsTree_->topLevelItem(22)->setText(1, notifierBackgroundColor_);
 
   NewsTabWidget *widget = (NewsTabWidget*)stackedWidget_->widget(TAB_WIDGET_PERMANENT);
-  backWebPageAct_->setText(widget->webView_->page()->action(QWebPage::Back)->text());
-  backWebPageAct_->setToolTip(widget->webView_->page()->action(QWebPage::Back)->toolTip() + " " + tr("(Browser)"));
-  backWebPageAct_->setIcon(widget->webView_->page()->action(QWebPage::Back)->icon());
-  backWebPageAct_->setShortcut(widget->webView_->page()->action(QWebPage::Back)->shortcut());
+  backWebPageAct_->setText(widget->webView_->page()->action(QWebEnginePage::Back)->text());
+  backWebPageAct_->setToolTip(widget->webView_->page()->action(QWebEnginePage::Back)->toolTip() + " " + tr("(Browser)"));
+  backWebPageAct_->setIcon(widget->webView_->page()->action(QWebEnginePage::Back)->icon());
+  backWebPageAct_->setShortcut(widget->webView_->page()->action(QWebEnginePage::Back)->shortcut());
 
-  forwardWebPageAct_->setText(widget->webView_->page()->action(QWebPage::Forward)->text());
-  forwardWebPageAct_->setToolTip(widget->webView_->page()->action(QWebPage::Forward)->toolTip() + " " + tr("(Browser)"));
-  forwardWebPageAct_->setIcon(widget->webView_->page()->action(QWebPage::Forward)->icon());
-  forwardWebPageAct_->setShortcut(widget->webView_->page()->action(QWebPage::Forward)->shortcut());
+  forwardWebPageAct_->setText(widget->webView_->page()->action(QWebEnginePage::Forward)->text());
+  forwardWebPageAct_->setToolTip(widget->webView_->page()->action(QWebEnginePage::Forward)->toolTip() + " " + tr("(Browser)"));
+  forwardWebPageAct_->setIcon(widget->webView_->page()->action(QWebEnginePage::Forward)->icon());
+  forwardWebPageAct_->setShortcut(widget->webView_->page()->action(QWebEnginePage::Forward)->shortcut());
 
-  reloadWebPageAct_->setText(widget->webView_->page()->action(QWebPage::Reload)->text());
-  reloadWebPageAct_->setToolTip(widget->webView_->page()->action(QWebPage::Reload)->toolTip() + " " + tr("(Browser)"));
-  reloadWebPageAct_->setIcon(widget->webView_->page()->action(QWebPage::Reload)->icon());
-  reloadWebPageAct_->setShortcut(widget->webView_->page()->action(QWebPage::Reload)->shortcut());
+  reloadWebPageAct_->setText(widget->webView_->page()->action(QWebEnginePage::Reload)->text());
+  reloadWebPageAct_->setToolTip(widget->webView_->page()->action(QWebEnginePage::Reload)->toolTip() + " " + tr("(Browser)"));
+  reloadWebPageAct_->setIcon(widget->webView_->page()->action(QWebEnginePage::Reload)->icon());
+  reloadWebPageAct_->setShortcut(widget->webView_->page()->action(QWebEnginePage::Reload)->shortcut());
 
   optionsDialog_->loadActionShortcut(listActions_, &listDefaultShortcut_);
 
@@ -6544,7 +6544,7 @@ void MainWindow::setBrowserPosition(QAction *action)
 
 /** @brief Create tab with browser only (without news list)
  *---------------------------------------------------------------------------*/
-QWebPage *MainWindow::createWebTab(QUrl url)
+QWebEnginePage *MainWindow::createWebTab(QUrl url)
 {
   NewsTabWidget *widget = new NewsTabWidget(this, NewsTabWidget::TabTypeWeb);
   int indexTab = addTab(widget);

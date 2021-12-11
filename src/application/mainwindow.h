@@ -30,7 +30,7 @@
 #endif
 #endif
 #include <QtSql>
-#include <QtWebKit>
+#include <QtWebEngineWidgets/QtWebEngineWidgets>
 #include <QPrintDialog>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
@@ -309,7 +309,7 @@ public slots:
   void slotUpdateStatus(int feedId, bool changed = true);
   void setNewsFilter(QAction*, bool clicked = true);
   void slotCloseTab(int index);
-  QWebPage *createWebTab(QUrl url = QUrl());
+  QWebEnginePage *createWebTab(QUrl url = QUrl());
   void feedsModelReload(bool checkFilter = false);
   void setStatusFeed(int feedId, QString status);
   void slotPrint(QWebFrame *frame = 0);

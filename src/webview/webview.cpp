@@ -25,7 +25,7 @@
 #include <QMimeData>
 
 WebView::WebView(QWidget *parent)
-  : QWebView(parent)
+  : QWebEngineView(parent)
   , buttonClick_(0)
   , isLoading_(false)
   , rssChecked_(false)
@@ -57,7 +57,7 @@ void WebView::disconnectObjects()
     dragStartPos_ = event->pos();
   }
 
-  QWebView::mousePressEvent(event);
+  QWebEngineView::mousePressEvent(event);
 }
 
 /*virtual*/ void WebView::mouseReleaseEvent(QMouseEvent *event)
@@ -93,7 +93,7 @@ void WebView::disconnectObjects()
     }
   }
 
-  QWebView::mouseReleaseEvent(event);
+  QWebEngineView::mouseReleaseEvent(event);
 }
 
 /*virtual*/ void WebView::wheelEvent(QWheelEvent *event)
@@ -110,13 +110,13 @@ void WebView::disconnectObjects()
     event->accept();
     return;
   }
-  QWebView::wheelEvent(event);
+  QWebEngineView::wheelEvent(event);
 }
 
 void WebView::mouseMoveEvent(QMouseEvent* event)
 {
   if (event->buttons() != Qt::LeftButton) {
-    QWebView::mouseMoveEvent(event);
+    QWebEngineView::mouseMoveEvent(event);
     return;
   }
 
@@ -126,19 +126,19 @@ void WebView::mouseMoveEvent(QMouseEvent* event)
   viewSize.setHeight(page()->viewportSize().height() -
                      page()->mainFrame()->scrollBarGeometry(Qt::Horizontal).height());
   if ((dragStartPos_.x() > viewSize.width()) || (dragStartPos_.y() > viewSize.height())) {
-    QWebView::mouseMoveEvent(event);
+    QWebEngineView::mouseMoveEvent(event);
     return;
   }
 
   int manhattanLength = (event->pos() - dragStartPos_).manhattanLength();
   if (manhattanLength <= QApplication::startDragDistance()) {
-    QWebView::mouseMoveEvent(event);
+    QWebEngineView::mouseMoveEvent(event);
     return;
   }
 
   const QWebHitTestResult &hitTest = page()->mainFrame()->hitTestContent(dragStartPos_);
   if (hitTest.linkUrl().isEmpty()) {
-    QWebView::mouseMoveEvent(event);
+    QWebEngineView::mouseMoveEvent(event);
     return;
   }
 

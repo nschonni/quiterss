@@ -29,8 +29,8 @@ jobs:
       with:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         version: ${{ matrix.qt }}
-        modules: 'qtwidgets qtwebkitwidgets qtnetwork qtxml qtprintsupport qtsql qtmultimedia'
-    - run: sudo apt-get install qtbase5-dev qtbase5-dev-tools qttools5-dev-tools libqt5webkit5-dev qtmultimedia5-dev
+        modules: 'qtwidgets qtwebenginewidgets qtnetwork qtxml qtprintsupport qtsql qtmultimedia'
+    # - run: sudo apt-get install qtbase5-dev qtbase5-dev-tools qttools5-dev-tools libqt5webkit5-dev qtmultimedia5-dev
     - name: make
       run: |
         mkdir _build && cd _build

@@ -22,7 +22,7 @@
 
 #include <sqlite3.h>
 #ifdef HAVE_QT5
-#include <QWebPage>
+#include <QWebEnginePage>
 #else
 #include <qwebkitversion.h>
 #endif

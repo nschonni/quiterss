@@ -65,7 +65,7 @@
 #include <QFrame>
 #include <QMenu>
 #include <QTimer>
-#include <QWebView>
+#include <QWebEngineView>
 #include <QNetworkRequest>
 #include <QWebHitTestResult>
 

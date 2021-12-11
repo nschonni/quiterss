@@ -30,7 +30,7 @@
 QList<WebPage*> WebPage::livingPages_;
 
 WebPage::WebPage(QObject *parent)
-  : QWebPage(parent)
+  : QWebEnginePage(parent)
   , loadProgress_(-1)
 {
   networkManagerProxy_ = new NetworkManagerProxy(this, this);
@@ -39,8 +39,8 @@ WebPage::WebPage(QObject *parent)
   setPluginFactory(new WebPluginFactory(this));
   setForwardUnsupportedContent(true);
 
-  action(QWebPage::OpenFrameInNewWindow)->setVisible(false);
-  action(QWebPage::OpenImageInNewWindow)->setVisible(false);
+  action(QWebEnginePage::OpenFrameInNewWindow)->setVisible(false);
+  action(QWebEnginePage::OpenImageInNewWindow)->setVisible(false);
 
   connect(this, SIGNAL(loadProgress(int)), this, SLOT(progress(int)));
   connect(this, SIGNAL(loadFinished(bool)), this, SLOT(finished()));
@@ -78,10 +78,10 @@ bool WebPage::acceptNavigationRequest(QWebFrame *frame,
   lastRequestType_ = type;
   lastRequestUrl_ = request.url();
 
-  return QWebPage::acceptNavigationRequest(frame,request,type);
+  return QWebEnginePage::acceptNavigationRequest(frame,request,type);
 }
 
-QWebPage *WebPage::createWindow(WebWindowType type)
+QWebEnginePage *WebPage::createWindow(WebWindowType type)
 {
   Q_UNUSED(type)
 
