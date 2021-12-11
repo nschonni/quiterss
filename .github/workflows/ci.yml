@@ -29,10 +29,10 @@ jobs:
       with:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         version: ${{ matrix.qt }}
-    # - run: apt-get qtbase5-dev qtbase5-dev-tools qttools5-dev-tools libqt5webkit5-dev qtmultimedia5-dev
-    # - name: make
-    #   run: |
-    #     mkdir _build && cd _build
-    #     qmake CONFIG+=release PREFIX=/usr ../QuiteRSS.pro
-    #     make
-    #     make install
+    - run: sudo apt-get install qtbase5-dev qtbase5-dev-tools qttools5-dev-tools libqt5webkit5-dev qtmultimedia5-dev
+    - name: make
+      run: |
+        mkdir _build && cd _build
+        qmake CONFIG+=release PREFIX=/usr ../QuiteRSS.pro
+        make
+        make install
