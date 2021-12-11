@@ -14,9 +14,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+      uses: WillBrennan/yaqti@2021.07.29
       with:
-        version: 5.4.1
+        version: 5.9.1
+        os: 'linux'
+        platform: 'desktop'
     - name: make
       run: |
         mkdir _build && cd _build
