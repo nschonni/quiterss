@@ -8,17 +8,27 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        qt:
+          - 5.9.1
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Install Qt
-      uses: WillBrennan/yaqti@2021.07.29
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1  # not v2!
       with:
-        version: 5.9.1
-        os: 'linux'
-        platform: 'desktop'
+        path: ../Qt
+        key: ${{ runner.os }}-${{ matrix.qt }}-QtCache
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
+        version: ${{ matrix.qt }}
     - name: make
       run: |
         mkdir _build && cd _build
