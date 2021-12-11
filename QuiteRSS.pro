@@ -2,7 +2,7 @@
 REVFILE = src/VersionRev.h
 QMAKE_DISTCLEAN += $$REVFILE
 exists(.git) {
-  VERSION_REV = $$system(git rev-list master --count)
+  VERSION_REV = $$system(git rev-list origin/master --count)
   count(VERSION_REV, 1) {
     os2|win32|mac {
       # FIXME
